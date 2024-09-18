@@ -1,13 +1,14 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UserDataService } from './services/UserDataService';
+import { UserDataService } from './services/userDataService';
 import { User } from './models/user.model';
 import { MatTableModule } from '@angular/material/table';
+import { NavComponent } from './nav/nav.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatTableModule],
+  imports: [RouterOutlet, MatTableModule, NavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -18,8 +19,8 @@ export class AppComponent implements OnInit {
   dataSource = [];
 
   title = 'Dating App';
-  users: User[] = []; 
-  
+  users: User[] = [];
+
   ngOnInit(): void {
     this.#userDataService.GetUsers().subscribe({
       //kann man vllt deklarativ programmieren, wenn ich die User einfach nur in View anzeigen muss
