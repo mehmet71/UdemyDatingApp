@@ -1,32 +1,22 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UserDataService } from './services/userDataService';
-import { User } from './models/user.model';
 import { MatTableModule } from '@angular/material/table';
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from './components/nav/nav.component';
+import { AccountService } from './services/accountService';
+import { HomeComponent } from "./components/home/home.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatTableModule, NavComponent],
+  imports: [RouterOutlet, MatTableModule, NavComponent, HomeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
-  #userDataService = inject(UserDataService)
+export class AppComponent {
+  #accountService = inject(AccountService);
 
-  displayedColumns: string[] = ['id', 'userName'];
-  dataSource = [];
-
-  title = 'Dating App';
-  users: User[] = [];
-
-  ngOnInit(): void {
-    this.#userDataService.GetUsers().subscribe({
-      //kann man vllt deklarativ programmieren, wenn ich die User einfach nur in View anzeigen muss
-      next: users => this.users = users,
-      error: error => console.log(error)
-    }
-    );
+  constructor() {
+    const userstring = localStorage.getItem('user');
+    this.#accountService.currentUser.set(userstring ? JSON.parse(userstring) : null);
   }
 }

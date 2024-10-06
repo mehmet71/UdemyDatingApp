@@ -1,0 +1,42 @@
+<div class="container mt-5">
+    @if(!showRegisterForm()){
+    <div style="text-align: center;">
+        <h1>Find your match</h1>
+        <p class="lead">All you need to do to view your matches is <strong>register</strong>!</p>
+        <div class="text-center">
+            <button class="btn btn-primary btn-lg me-2" (click)="showRegisterForm.set(true)">Register</button>
+            <button class="btn btn-info btn-lg me-2">Learn more</button>
+        </div>
+    </div>
+    }
+    @else{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <app-register (cancelRegister)="cancelRegistration($event)"/>
+                <!-- <p>Register form</p>
+                <form class="d-flex me-2" [formGroup]="registerForm" autocomplete="off">
+                    <input class="form-control me-2" formControlName="username" type="text" placeholder="Username" />
+                    <input class="form-control me-2" formControlName="password" type="password" placeholder="Password"
+                        style="margin-bottom: 1em;" />
+                    <input class="form-control me-2" formControlName="name" type="text" placeholder="Name" />
+                    <input class="form-control me-2" formControlName="surname" type="text" placeholder="Surname" />
+                    <input class="form-control me-2" formControlName="age" type="number" placeholder="Age" />
+                    <select class="form-control form-select me-2" formControlName="gender" type="number"
+                        placeholder="Gender">
+                        <option [value]="null" disabled selected>Gender</option>
+                        <option [value]="0">Male</option>
+                        <option [value]="1">Female</option>
+                    </select>
+                    <input class="form-control me-2" formControlName="email" type="text" placeholder="Email" />
+                    <div class="button-container">
+                        <button class=" btn btn-primary btn-lg" (click)="registerUser()"
+                            disabled="registerForm.invalid">Register</button>
+                        <button class="btn btn-info btn-lg">Cancel</button>
+                    </div>
+                </form> -->
+            </div>
+        </div>
+    </div>
+    }
+</div>
