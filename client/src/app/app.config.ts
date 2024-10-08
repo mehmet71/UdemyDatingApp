@@ -7,7 +7,17 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { AccountService } from './services/accountService';
 import { UserDataService } from './services/userDataService';
 import { provideStore } from '@ngrx/store';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), UserDataService, AccountService, provideHttpClient(), provideStore(), provideAnimations()]
+  providers: [
+    provideRouter(routes),
+    UserDataService,
+    AccountService,
+    provideHttpClient(),
+    provideStore(),
+    provideAnimations(),
+    provideToastr({
+      positionClass: 'toast-top-center'
+    })]
 };

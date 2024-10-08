@@ -3,6 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { AccountService } from '../../services/accountService';
 import { catchError, EMPTY } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-register',
@@ -14,6 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class RegisterComponent {
     #fb = inject(FormBuilder);
     #accountService = inject(AccountService);
+    #toastr = inject(ToastrService);
     cancelRegister = output<boolean>();
 
     registerForm = this.#fb.group({
@@ -32,11 +34,13 @@ export class RegisterComponent {
         if (username && password) {
             this.#accountService.register(username, password).pipe(catchError((err: HttpErrorResponse) => {
                 console.log(err);
-                window.alert("Registrierung ist schiefgelaufen.");
+                //window.alert("Registrierung ist schiefgelaufen.");
+                this.#toastr.error("Registrierung ist schiefgelaufen.");
                 return EMPTY;
-            })).subscribe((user) => {
+            })).subscribe(() => {
                 this.registerForm.reset();
-                window.alert("Registrierung abgeschlossen. Benutzer wird direkt angemeldet.");
+                this.#toastr.info("Registrierung abgeschlossen. Benutzer wird direkt angemeldet.")
+                //window.alert("Registrierung abgeschlossen. Benutzer wird direkt angemeldet.");
             });
         }
     }
